@@ -491,26 +491,68 @@
             </div>
 
             <!-- Right Column - Contact Form -->
-            <div class="md:col-span-2 animate-on-scroll" style="animation-delay: 0.4s">
-                <div class="purple-box h-full p-8 hover:translate-y-0">
-                    <h3 class="text-2xl font-semibold mb-6">Send Me a Message</h3>
-                    <form class="space-y-6">
-                        <div>
-                            <label for="name" class="block mb-2 font-medium">Your Name</label>
-                            <input type="text" id="name" class="w-full px-4 py-3 rounded-lg bg-purple-900/50 border border-purple-700 focus:outline-none focus:ring-2 focus:ring-pink-500" placeholder="Enter your name" required>
-                        </div>
-                        <div>
-                            <label for="email" class="block mb-2 font-medium">Your Email</label>
-                            <input type="email" id="email" class="w-full px-4 py-3 rounded-lg bg-purple-900/50 border border-purple-700 focus:outline-none focus:ring-2 focus:ring-pink-500" placeholder="Enter your email" required>
-                        </div>
-                        <div>
-                            <label for="message" class="block mb-2 font-medium">Your Message</label>
-                            <textarea id="message" rows="3" class="w-full px-4 py-3 rounded-lg bg-purple-900/50 border border-purple-700 focus:outline-none focus:ring-2 focus:ring-pink-500" placeholder="Hi Saumya, I'd like to connect about..." required></textarea>
-                        </div>
-                        <button type="submit" class="w-full bg-gradient-to-r from-pink-500 to-purple-600 text-white font-semibold py-3 px-6 rounded-lg hover:from-pink-600 hover:to-purple-700 transition-all duration-300 shadow-lg">
-                            Send Message
-                        </button>
-                    </form>
+<div class="md:col-span-2 animate-on-scroll" style="animation-delay: 0.4s">
+    <div class="purple-box h-full p-8 hover:translate-y-0">
+        <h3 class="text-2xl font-semibold mb-6">Send Me a Message</h3>
+        
+        <form id="contactForm" action="https://formspree.io/f/myzjlrwk" method="POST" class="space-y-6">
+            <div>
+                <label for="name" class="block mb-2 font-medium">Your Name</label>
+                <input type="text" id="name" name="name" class="w-full px-4 py-3 rounded-lg bg-purple-900/50 border border-purple-700 focus:outline-none focus:ring-2 focus:ring-pink-500" placeholder="Enter your name" required>
+            </div>
+
+            <div>
+                <label for="email" class="block mb-2 font-medium">Your Email</label>
+                <input type="email" id="email" name="email" class="w-full px-4 py-3 rounded-lg bg-purple-900/50 border border-purple-700 focus:outline-none focus:ring-2 focus:ring-pink-500" placeholder="Enter your email" required>
+            </div>
+
+            <div>
+                <label for="message" class="block mb-2 font-medium">Your Message</label>
+                <textarea id="message" name="message" rows="3" class="w-full px-4 py-3 rounded-lg bg-purple-900/50 border border-purple-700 focus:outline-none focus:ring-2 focus:ring-pink-500" placeholder="Hi Saumya, I'd like to connect about..." required></textarea>
+            </div>
+
+            <button type="submit" class="w-full bg-gradient-to-r from-pink-500 to-purple-600 text-white font-semibold py-3 px-6 rounded-lg hover:from-pink-600 hover:to-purple-700 transition-all duration-300 shadow-lg">
+                Send Message
+            </button>
+        </form>
+
+        <!-- Success Message -->
+        <div id="successMessage" class="mt-4 text-green-400 font-semibold hidden">
+            Thank you! Your message has been sent successfully.
+        </div>
+    </div>
+</div>
+
+<script>
+document.getElementById('contactForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+
+    const form = e.target;
+    const formData = new FormData(form);
+
+    try {
+        const response = await fetch(form.action, {
+            method: 'POST',
+            body: formData,
+            headers: { 'Accept': 'application/json' }
+        });
+
+        if (response.ok) {
+            form.reset();
+            document.getElementById('successMessage').classList.remove('hidden');
+            setTimeout(() => {
+                document.getElementById('successMessage').classList.add('hidden');
+            }, 5000);
+        } else {
+            alert("Oops! Something went wrong.");
+        }
+    } catch (error) {
+        alert("Error submitting form.");
+    }
+});
+</script>
+
+
                 </div>
             </div>
 
@@ -549,7 +591,7 @@
     <!-- Footer -->
     <footer class="bg-purple-900 text-white py-6">
         <div class="container mx-auto text-center">
-            <p>© 2023 Saumya Tayal. All rights reserved.</p>
+            <p>© 2025 Saumya Tayal. All rights reserved.</p>
         </div>
     </footer>
 
